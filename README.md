@@ -63,22 +63,7 @@ For public clients (SPA, mobile) you can enable PKCE (S256):
 ```php
 Socialite::driver('podcastde')->enablePKCE()->redirect();
 ```
-
-## Upgrading from 0.x to 1.x
-
-Version 1.0 contains breaking changes:
-
-| Before (0.x)                                                              | After (1.x)                                              |
-| ------------------------------------------------------------------------- | -------------------------------------------------------- |
-| Namespace `podcasthosting\podcaster\socialiteprovider`                    | `Podcasthosting\Podcastde`                               |
-| Class `PodcasterExtendSocialite`                                          | `PodcastdeExtendSocialite`                               |
-| Driver slug `podcaster`                                                   | `podcastde`                                              |
-| `IDENTIFIER = 'PODCASTER'`                                                | `IDENTIFIER = 'PODCASTDE'`                               |
-| README example used `Socialite::extend(...)` inside `EventServiceProvider`| Use the listener pattern shown above                     |
-
-Replace the old `bootPodcasterSocialite()` boot logic with the `$listen`
-array entry described in *Configuration / Register the event listener*.
-
+   
 ## Development
 
 ```bash

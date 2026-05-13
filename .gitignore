@@ -1,6 +1,7 @@
 vendor/
 node_modules/
 npm-debug.log
+composer.lock
 
 # Tooling caches
 .phpunit.cache/
