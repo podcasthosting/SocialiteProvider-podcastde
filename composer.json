@@ -1,0 +1,49 @@
+{
+    "name": "podcasthosting/socialiteprovider-podcastde",
+    "description": "podcast.de OAuth2 Provider for Laravel Socialite",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "socialite",
+        "oauth",
+        "oauth2",
+        "podcast",
+        "podcast.de"
+    ],
+    "homepage": "https://www.podcast.de",
+    "support": {
+        "issues": "https://github.com/podcasthosting/SocialiteProvider-podcast/issues",
+        "source": "https://github.com/podcasthosting/SocialiteProvider-podcast"
+    },
+    "authors": [
+        {
+            "name": "Fabio Bacigalupo",
+            "email": "support@podcast.de",
+            "homepage": "https://www.podcast.de"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-json": "*",
+        "socialiteproviders/manager": "^4.4"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^2.0",
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Podcasthosting\\Podcastde\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Podcasthosting\\Podcastde\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}
