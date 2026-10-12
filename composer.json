@@ -12,8 +12,8 @@
     ],
     "homepage": "https://www.podcast.de",
     "support": {
-        "issues": "https://github.com/podcasthosting/SocialiteProvider-podcast/issues",
-        "source": "https://github.com/podcasthosting/SocialiteProvider-podcast"
+        "issues": "https://github.com/podcasthosting/SocialiteProvider-podcastde/issues",
+        "source": "https://github.com/podcasthosting/SocialiteProvider-podcastde"
     },
     "authors": [
         {
@@ -29,8 +29,9 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
-        "phpstan/phpstan": "^2.0",
-        "phpunit/phpunit": "^11.0"
+        "orchestra/testbench": "^9.0|^10.0",
+        "pestphp/pest": "^3.0",
+        "phpstan/phpstan": "^2.1"
     },
     "autoload": {
         "psr-4": {
@@ -43,7 +44,23 @@
         }
     },
     "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
         "sort-packages": true
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "scripts": {
+        "test": "pest",
+        "coverage": "pest --coverage --min=100",
+        "mutate": "pest --mutate --everything --covered-only --parallel --min=100",
+        "analyse": "phpstan analyse",
+        "format": "php-cs-fixer fix",
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "check": [
+            "@lint",
+            "@analyse",
+            "@test"
+        ]
+    }
 }

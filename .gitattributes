@@ -2,9 +2,10 @@
 /.github                  export-ignore
 /.idea                    export-ignore
 /.phpunit.cache           export-ignore
+/.phpstan.cache           export-ignore
 /.claude                  export-ignore
 /phpunit.xml              export-ignore
-/phpstan.neon             export-ignore
+/phpstan.neon.dist        export-ignore
 /.php-cs-fixer.dist.php   export-ignore
 /CLAUDE.md                export-ignore
 /.gitattributes           export-ignore
