@@ -100,6 +100,27 @@ describe('scopes', function () {
         expect(provider()->scopes(['user-read-only'])->getScopes())->toBe(['user-read-only']);
     });
 
+    it('adds podcasts-read-only on request', function () {
+        expect(provider()->withPodcastsReadOnly()->getScopes())->toBe(['user-read-only', 'podcasts-read-only']);
+    });
+
+    it('is fluent', function () {
+        $provider = provider();
+
+        expect($provider->withPodcastsReadOnly())->toBe($provider);
+    });
+
+    it('does not request podcasts-read-only twice', function () {
+        expect(provider()->withPodcastsReadOnly()->withPodcastsReadOnly()->scopes(['podcasts-read-only'])->getScopes())
+            ->toBe(['user-read-only', 'podcasts-read-only']);
+    });
+
+    it('sends podcasts-read-only space separated in the authorize url', function () {
+        $url = provider()->withPodcastsReadOnly()->stateless()->redirect()->getTargetUrl();
+
+        expect(queryOf($url)['scope'])->toBe('user-read-only podcasts-read-only');
+    });
+
     it('separates scopes with a space as Passport expects', function () {
         $url = provider()->scopes(['system'])->stateless()->redirect()->getTargetUrl();
 

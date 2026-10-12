@@ -114,6 +114,31 @@ describe('complete login', function () {
         expect($user->approvedScopes)->toBe(['user-read-only'])->not->toContain('system');
     });
 
+    it('reports a granted podcasts-read-only scope', function () {
+        $state = queryOf(Socialite::driver('podcastde')->withPodcastsReadOnly()->redirect()->getTargetUrl())['state'];
+        returnFromPodcastde(['code' => 'auth-code', 'state' => $state]);
+
+        $user = Socialite::driver('podcastde')
+            ->setHttpClient(httpClient([
+                jsonResponse(tokenResponse(['user-read-only', 'podcasts-read-only'])),
+                jsonResponse(userResponse()),
+            ]))
+            ->user();
+
+        expect($user->approvedScopes)->toContain(Scope::PodcastsReadOnly->value);
+    });
+
+    it('reports podcasts-read-only as missing when the user deselected it on the consent screen', function () {
+        $state = queryOf(Socialite::driver('podcastde')->withPodcastsReadOnly()->redirect()->getTargetUrl())['state'];
+        returnFromPodcastde(['code' => 'auth-code', 'state' => $state]);
+
+        $user = Socialite::driver('podcastde')
+            ->setHttpClient(httpClient([jsonResponse(tokenResponse(['user-read-only'])), jsonResponse(userResponse())]))
+            ->user();
+
+        expect($user->approvedScopes)->toBe(['user-read-only'])->not->toContain(Scope::PodcastsReadOnly->value);
+    });
+
     it('caches the user for the lifetime of the provider instance', function () {
         $history = [];
         returnFromPodcastde(['code' => 'auth-code']);

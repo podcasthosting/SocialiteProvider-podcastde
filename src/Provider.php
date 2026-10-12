@@ -25,6 +25,16 @@ class Provider extends AbstractProvider
 
     protected $usesPKCE = true;
 
+    /**
+     * Additionally request read access to the podcasts the user has claimed
+     * (titles and URLs). The user may deselect it on the consent screen, so
+     * check $user->approvedScopes before calling /api/oauth/podcasts.
+     */
+    public function withPodcastsReadOnly(): static
+    {
+        return $this->scopes([Scope::PodcastsReadOnly->value]);
+    }
+
     protected function getAuthUrl($state): string
     {
         return $this->buildAuthUrlFromBase(self::BASE_URL . '/oauth/authorize', $state);

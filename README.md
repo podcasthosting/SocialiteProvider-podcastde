@@ -66,6 +66,17 @@ Route::get('/auth/podcastde/callback', function () {
 The provider requests the `user-read-only` scope by default. The scope names are available
 as `Podcasthosting\Podcastde\Scope` enum.
 
+To additionally request read access to the podcasts the user has claimed on podcast.de
+(titles, feed and web URLs), call `withPodcastsReadOnly()`:
+
+```php
+return Socialite::driver('podcastde')->withPodcastsReadOnly()->redirect();
+```
+
+`podcasts-read-only` is optional for the user: it can be deselected on the podcast.de consent
+screen. With the scope granted, `GET https://www.podcast.de/api/oauth/podcasts` (Bearer token)
+returns the claimed podcasts as `{"data": [{"id", "title", "slug", "rss", "web", "owner_type"}]}`.
+
 The granted scopes are taken from the `scopes` claim of the access token (Laravel Passport
 does not return them in the token response) and are available via `$user->approvedScopes`:
 
@@ -74,8 +85,8 @@ use Podcasthosting\Podcastde\Scope;
 
 $user = Socialite::driver('podcastde')->user();
 
-if (in_array(Scope::UserReadOnly->value, $user->approvedScopes, true)) {
-    // access token may read the user's profile
+if (in_array(Scope::PodcastsReadOnly->value, $user->approvedScopes, true)) {
+    // access token may list the user's podcasts via /api/oauth/podcasts
 }
 ```
 
